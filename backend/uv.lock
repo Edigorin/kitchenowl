@@ -1239,10 +1239,7 @@ dependencies = [
     { name = "recipe-scrapers" },
     { name = "requests" },
     { name = "sqlalchemy" },
-    { name = "sqlite-icu" },
     { name = "tqdm" },
-    { name = "uwsgi" },
-    { name = "uwsgi-tools" },
     { name = "werkzeug" },
 ]
 
@@ -1289,10 +1286,7 @@ requires-dist = [
     { name = "recipe-scrapers", specifier = ">=15.6.0" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "sqlalchemy", specifier = ">=2.0.40" },
-    { name = "sqlite-icu", specifier = ">=1.0" },
     { name = "tqdm", specifier = ">=4.67.1" },
-    { name = "uwsgi", specifier = ">=2.0.28" },
-    { name = "uwsgi-tools", specifier = ">=1.1.1" },
     { name = "werkzeug", specifier = ">=3.1.3" },
 ]
 
@@ -2465,12 +2459,6 @@ wheels = [
 ]
 
 [[package]]
-name = "sqlite-icu"
-version = "1.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/24/77/47ef08dd0ee9c81a27e7c968dd69b9c0a95fb46d7429a6483a6fe4f885f2/sqlite-icu-1.0.tar.gz", hash = "sha256:973caf41f31672fed7c805327c1d587636f8d8cbc7f6e5486ec94d6917036edd", size = 8044, upload-time = "2021-11-13T17:28:52.98Z" }
-
-[[package]]
 name = "threadpoolctl"
 version = "3.6.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2604,21 +2592,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/1e/24/a2a2ed9addd907787d7aa0355ba36a6cadf1768b934c652ea78acbd59dcd/urllib3-2.6.2.tar.gz", hash = "sha256:016f9c98bb7e98085cb2b4b17b87d2c702975664e4f060c6532e64d1c1a5e797", size = 432930, upload-time = "2025-12-11T15:56:40.252Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6d/b9/4095b668ea3678bf6a0af005527f39de12fb026516fb3df17495a733b7f8/urllib3-2.6.2-py3-none-any.whl", hash = "sha256:ec21cddfe7724fc7cb4ba4bea7aa8e2ef36f607a4bab81aa6ce42a13dc3f03dd", size = 131182, upload-time = "2025-12-11T15:56:38.584Z" },
-]
-
-[[package]]
-name = "uwsgi"
-version = "2.0.31"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/9f/49/2f57640e889ba509fd1fae10cccec1b58972a07c2724486efba94c5ea448/uwsgi-2.0.31.tar.gz", hash = "sha256:e8f8b350ccc106ff93a65247b9136f529c14bf96b936ac5b264c6ff9d0c76257", size = 822796, upload-time = "2025-10-11T19:17:28.794Z" }
-
-[[package]]
-name = "uwsgi-tools"
-version = "1.1.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/44/ff/7f4858f506af511c453187037781b677e04907e890c8f6d4ea38b749e95a/uwsgi-tools-1.1.1.tar.gz", hash = "sha256:565e10945c50ed6f4378168a2a609bb7d1c2c5b21ab23edd1ad5f73d15ab6356", size = 5065, upload-time = "2017-12-18T11:20:13.68Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/1f/28/af43f7f6aaa7fbe150f4683a1364a25d1d8b43cb5dcb6e9b701a3c4c5c06/uwsgi_tools-1.1.1-py3-none-any.whl", hash = "sha256:7d557c83b1803962ea73c2f19688b0d5e7d212f382d0a1a0a4586ae0f34f4cb2", size = 6959, upload-time = "2017-12-18T11:20:11.789Z" },
 ]
 
 [[package]]
