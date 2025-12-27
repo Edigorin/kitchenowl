@@ -1,0 +1,29 @@
+version: "3"
+services:
+  front:
+    image: kitchenowl-web:latest
+    build:
+      context: https://github.com/Edigorin/kitchenowl.git#main:kitchenowl
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - back
+    environment:
+      - BACK_URL=back:5000
+
+  back:
+    image: kitchenowl-backend:latest
+    build:
+      context: https://github.com/Edigorin/kitchenowl.git#main:backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-PLEASE_CHANGE_ME_TO_A_SECURE_KEY}
+    volumes:
+      - kitchenowl_data:/data
+
+volumes:
+  kitchenowl_data:
+
