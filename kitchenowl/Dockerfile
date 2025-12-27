@@ -27,6 +27,9 @@ RUN git clone https://github.com/flutter/flutter.git -b stable /usr/local/src/fl
 # Set flutter path
 ENV PATH="${PATH}:/usr/local/src/flutter/bin"
 
+# Fix tar ownership issues when running as root in Docker
+ENV TAR_OPTIONS="--no-same-owner"
+
 # Enable flutter web
 RUN flutter config --enable-web
 RUN flutter config --no-analytics
