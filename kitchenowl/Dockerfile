@@ -32,8 +32,8 @@ RUN flutter config --enable-web
 RUN flutter config --no-analytics
 RUN flutter upgrade
 
-# Run flutter doctor
-RUN flutter doctor -v
+# Skip flutter doctor - not needed for web-only builds and causes issues in Docker
+# RUN flutter doctor -v
 
 # Copy the app files to the container
 COPY .metadata l10n.yaml pubspec.yaml pubspec.lock /usr/local/src/app/
