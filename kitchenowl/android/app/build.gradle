@@ -24,7 +24,8 @@ if (flutterVersionName == null) {
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
-if (keystorePropertiesFile.exists()) {
+def keystorePropertiesExists = keystorePropertiesFile.exists()
+if (keystorePropertiesExists) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
@@ -58,16 +59,26 @@ android {
 
     signingConfigs {
        release {
-           keyAlias keystoreProperties['keyAlias']
-           keyPassword keystoreProperties['keyPassword']
-           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-           storePassword keystoreProperties['storePassword']
+           if (keystorePropertiesExists && keystoreProperties.containsKey('keyAlias')) {
+               keyAlias keystoreProperties['keyAlias']
+               keyPassword keystoreProperties['keyPassword']
+               def storeFilePath = keystoreProperties['storeFile']
+               if (storeFilePath != null) {
+                   storeFile file(storeFilePath)
+               }
+               storePassword keystoreProperties['storePassword']
+           }
        }
    }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            if (keystorePropertiesExists && keystoreProperties.containsKey('keyAlias')) {
+                signingConfig signingConfigs.release
+            } else {
+                // Fall back to debug signing for local builds without keystore
+                signingConfig signingConfigs.debug
+            }
         }
     }
 }
