@@ -59,6 +59,15 @@ class LoyaltyCard(Model, DbModelAuthorizeMixin):
     def find_by_id(cls, id: int) -> Self | None:
         return cls.query.filter(cls.id == id).first()
 
+    def obj_to_export_dict(self) -> dict[str, Any]:
+        return {
+            "name": self.name,
+            "barcode_type": self.barcode_type,
+            "barcode_data": self.barcode_data,
+            "description": self.description,
+            "color": self.color,
+        }
+
     @classmethod
     def find_by_household(cls, household_id: int) -> list[Self]:
         return cls.query.filter(cls.household_id == household_id).order_by(cls.name).all()

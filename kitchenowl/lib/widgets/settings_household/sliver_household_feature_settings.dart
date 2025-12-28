@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:kitchenowl/cubits/household_add_update/household_add_update_cubit.dart';
+import 'package:kitchenowl/cubits/household_add_update/household_update_cubit.dart';
 import 'package:kitchenowl/enums/views_enum.dart';
 import 'package:kitchenowl/kitchenowl.dart';
 import 'package:kitchenowl/widgets/language_bottom_sheet.dart';
@@ -63,6 +64,44 @@ class SliverHouseholdFeatureSettings<
                 )
                 .toList(),
           ),
+        ),
+        BlocBuilder<Cubit, State>(
+          builder: (context, state) {
+            // Only show loyalty card toggle if the Cubit supports it (HouseholdUpdateCubit)
+            if (state is HouseholdUpdateState) {
+              return Column(
+                children: [
+                  const SizedBox(height: 8),
+                  ListTile(
+                    title: Text(AppLocalizations.of(context)!.loyaltyCards),
+                    leading: const Icon(Icons.loyalty_rounded),
+                    contentPadding: const EdgeInsets.only(left: 16),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        KitchenOwlSwitch(
+                          value: state.featureLoyaltyCards,
+                          onChanged: (value) {
+                             if (context.read<Cubit>() is HouseholdUpdateCubit) {
+                                (context.read<Cubit>() as HouseholdUpdateCubit)
+                                    .setFeatureLoyaltyCards(value);
+                             }
+                          },
+                        ),
+                        // Match alignment with reorderable items which have drag handle or divider
+                        const VerticalDivider(
+                          endIndent: 4,
+                          indent: 4,
+                        ),
+                        const SizedBox(width: 44), // Approximate width of drag handle + padding
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            }
+            return const SizedBox.shrink();
+          },
         ),
         Center(child: Text(AppLocalizations.of(context)!.longPressToReorder)),
         const SizedBox(height: 8),

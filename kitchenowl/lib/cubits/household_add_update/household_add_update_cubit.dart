@@ -25,6 +25,7 @@ abstract class HouseholdAddUpdateState extends Equatable {
   final String? language;
   final bool featurePlanner;
   final bool featureExpenses;
+  final bool featureLoyaltyCards;
   final List<ViewsEnum> viewOrdering;
 
   final Map<String, String>? supportedLanguages;
@@ -34,6 +35,7 @@ abstract class HouseholdAddUpdateState extends Equatable {
     this.language,
     this.featurePlanner = true,
     this.featureExpenses = true,
+    this.featureLoyaltyCards = true,
     this.viewOrdering = ViewsEnum.values,
     this.supportedLanguages,
   });
@@ -44,6 +46,7 @@ abstract class HouseholdAddUpdateState extends Equatable {
         language,
         featurePlanner,
         featureExpenses,
+        featureLoyaltyCards,
         viewOrdering,
         supportedLanguages,
       ];

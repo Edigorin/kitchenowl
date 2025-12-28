@@ -486,34 +486,132 @@ class _LoyaltyCardAddUpdatePageState extends State<LoyaltyCardAddUpdatePage> {
     Color pickerColor =
         _selectedColor ?? Theme.of(context).colorScheme.primaryContainer;
 
+    // Common loyalty card colors
+    final List<Color> presets = [
+      Colors.red,
+      Colors.blue,
+      Colors.green,
+      Colors.orange,
+      Colors.purple,
+      Colors.teal,
+      Colors.pink,
+      Colors.indigo,
+      Colors.amber,
+      Colors.cyan,
+      Colors.brown,
+      Colors.grey,
+      Colors.black,
+      const Color(0xFF002244), // Navy
+      const Color(0xFFC71585), // Medium Violet Red
+      const Color(0xFF808000), // Olive
+    ];
+
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.color),
-        content: SingleChildScrollView(
-          child: ColorPicker(
-            pickerColor: pickerColor,
-            onColorChanged: (color) {
-              pickerColor = color;
-            },
-            pickerAreaHeightPercent: 0.8,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _selectedColor = pickerColor;
-              });
-              Navigator.of(context).pop();
-            },
-            child: Text(AppLocalizations.of(context)!.select),
-          ),
-        ],
+      builder: (context) => StatefulBuilder(
+        builder: (context, setStateDialog) {
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.color),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    alignment: WrapAlignment.center,
+                    children: presets.map((color) {
+                      final isSelected = pickerColor.value == color.value;
+                      return GestureDetector(
+                        onTap: () {
+                          setStateDialog(() {
+                            pickerColor = color;
+                          });
+                        },
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: color,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: isSelected
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Colors.transparent,
+                              width: 3,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: isSelected
+                              ? Icon(
+                                  Icons.check,
+                                  color: color.computeLuminance() > 0.5
+                                      ? Colors.black
+                                      : Colors.white,
+                                )
+                              : null,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 16),
+                  const Divider(),
+                  TextButton.icon(
+                    onPressed: () async {
+                      // Open advanced picker
+                      await showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text(AppLocalizations.of(context)!.color),
+                          content: SingleChildScrollView(
+                            child: ColorPicker(
+                              pickerColor: pickerColor,
+                              onColorChanged: (color) {
+                                pickerColor = color;
+                              },
+                              pickerAreaHeightPercent: 0.8,
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text(AppLocalizations.of(context)!.select),
+                            ),
+                          ],
+                        ),
+                      );
+                      // Update the parent dialog state
+                      setStateDialog(() {});
+                    },
+                    icon: const Icon(Icons.colorize),
+                    label: Text(AppLocalizations.of(context)!.advanced),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(AppLocalizations.of(context)!.cancel),
+              ),
+              FilledButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedColor = pickerColor;
+                  });
+                  Navigator.of(context).pop();
+                },
+                child: Text(AppLocalizations.of(context)!.select),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

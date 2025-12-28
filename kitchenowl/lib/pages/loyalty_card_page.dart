@@ -1,4 +1,5 @@
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:kitchenowl/models/loyalty_card.dart';
 import 'package:kitchenowl/pages/loyalty_card_add_update_page.dart';
 import 'package:barcode/barcode.dart' as bc;
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 
 class LoyaltyCardPage extends StatefulWidget {
   final LoyaltyCard loyaltyCard;
@@ -33,11 +35,31 @@ class _LoyaltyCardPageState extends State<LoyaltyCardPage> {
     super.initState();
     cubit = LoyaltyCardCubit(widget.loyaltyCard);
     WakelockPlus.enable();
+    _setMaxBrightness();
+  }
+
+  Future<void> _setMaxBrightness() async {
+    if (kIsWeb) return;
+    try {
+      await ScreenBrightness().setScreenBrightness(1.0);
+    } catch (e) {
+      debugPrint('Failed to set brightness: $e');
+    }
+  }
+
+  Future<void> _resetBrightness() async {
+    if (kIsWeb) return;
+    try {
+      await ScreenBrightness().resetScreenBrightness();
+    } catch (e) {
+      debugPrint('Failed to reset brightness: $e');
+    }
   }
 
   @override
   void dispose() {
     WakelockPlus.disable();
+    _resetBrightness();
     cubit.close();
     super.dispose();
   }

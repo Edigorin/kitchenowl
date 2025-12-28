@@ -21,6 +21,7 @@ class HouseholdUpdateCubit
           image: household.image,
           featureExpenses: household.featureExpenses ?? true,
           featurePlanner: household.featurePlanner ?? true,
+          featureLoyaltyCards: household.featureLoyaltyCards ?? true,
           viewOrdering: household.viewOrdering ?? ViewsEnum.values,
           language: household.language,
           description: household.description ?? "",
@@ -69,6 +70,7 @@ class HouseholdUpdateCubit
       name: household.name,
       featureExpenses: household.featureExpenses ?? true,
       featurePlanner: household.featurePlanner ?? true,
+      featureLoyaltyCards: household.featureLoyaltyCards ?? true,
       viewOrdering: household.viewOrdering ?? ViewsEnum.values,
       language: household.language,
       image: household.image,
@@ -120,6 +122,11 @@ class HouseholdUpdateCubit
     }
   }
 
+  void setFeatureLoyaltyCards(bool value) {
+    emit(state.copyWith(featureLoyaltyCards: value));
+    saveHousehold();
+  }
+
   @override
   void reorderView(int oldIndex, int newIndex) {
     final l = List.of(state.viewOrdering);
@@ -141,6 +148,7 @@ class HouseholdUpdateCubit
       language: state.language,
       featureExpenses: state.featureExpenses,
       featurePlanner: state.featurePlanner,
+      featureLoyaltyCards: state.featureLoyaltyCards,
       viewOrdering: state.viewOrdering,
       link: state.link,
       description: state.description,
@@ -324,6 +332,7 @@ class HouseholdUpdateState extends HouseholdAddUpdateState {
     super.language,
     super.featurePlanner = true,
     super.featureExpenses = true,
+    super.featureLoyaltyCards = true,
     super.viewOrdering = ViewsEnum.values,
     super.supportedLanguages,
     this.shoppingLists = const [],
@@ -338,6 +347,7 @@ class HouseholdUpdateState extends HouseholdAddUpdateState {
     String? language,
     bool? featurePlanner,
     bool? featureExpenses,
+    bool? featureLoyaltyCards,
     List<ViewsEnum>? viewOrdering,
     Map<String, String>? supportedLanguages,
     List<Member>? member,
@@ -354,6 +364,7 @@ class HouseholdUpdateState extends HouseholdAddUpdateState {
         language: language ?? this.language,
         featurePlanner: featurePlanner ?? this.featurePlanner,
         featureExpenses: featureExpenses ?? this.featureExpenses,
+        featureLoyaltyCards: featureLoyaltyCards ?? this.featureLoyaltyCards,
         viewOrdering: viewOrdering ?? this.viewOrdering,
         supportedLanguages: supportedLanguages ?? this.supportedLanguages,
         shoppingLists: shoppingLists ?? this.shoppingLists,
@@ -384,6 +395,7 @@ class LoadingHouseholdUpdateState extends HouseholdUpdateState {
     super.image,
     super.featureExpenses,
     super.featurePlanner,
+    super.featureLoyaltyCards,
     super.viewOrdering,
     super.language,
     super.supportedLanguages,
@@ -398,6 +410,7 @@ class LoadingHouseholdUpdateState extends HouseholdUpdateState {
     String? language,
     bool? featurePlanner,
     bool? featureExpenses,
+    bool? featureLoyaltyCards,
     List<ViewsEnum>? viewOrdering,
     Map<String, String>? supportedLanguages,
     List<Member>? member,
@@ -414,6 +427,7 @@ class LoadingHouseholdUpdateState extends HouseholdUpdateState {
         language: language ?? this.language,
         featurePlanner: featurePlanner ?? this.featurePlanner,
         featureExpenses: featureExpenses ?? this.featureExpenses,
+        featureLoyaltyCards: featureLoyaltyCards ?? this.featureLoyaltyCards,
         viewOrdering: viewOrdering ?? this.viewOrdering,
         supportedLanguages: supportedLanguages ?? this.supportedLanguages,
         link: link ?? this.link,

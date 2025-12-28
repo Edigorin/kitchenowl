@@ -161,11 +161,13 @@ class Household(Model):
             "view_ordering": self.view_ordering,
             "planner_feature": self.planner_feature,
             "expenses_feature": self.expenses_feature,
+            "loyalty_cards_feature": self.loyalty_cards_feature,
             "member": [m.user.username for m in getattr(self, "member")],
             "shoppinglists": [s.name for s in self.shoppinglists],
             "recipes": [s.obj_to_export_dict() for s in self.recipes],
             "items": [s.obj_to_export_dict() for s in self.items],
             "expenses": [s.obj_to_export_dict() for s in self.expenses],
+            "loyalty_cards": [s.obj_to_export_dict() for s in self.loyaltyCards],
         }
 
 
