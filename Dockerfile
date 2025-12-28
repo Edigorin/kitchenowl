@@ -3,6 +3,9 @@
 # ------------
 FROM --platform=$BUILDPLATFORM debian:latest AS app_builder
 
+# Fix for LXC/Proxmox unprivileged containers
+ENV TAR_OPTIONS="--no-same-owner"
+
 # Install dependencies
 RUN apt-get update -y
 RUN apt-get upgrade -y

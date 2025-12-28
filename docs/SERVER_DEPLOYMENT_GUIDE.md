@@ -83,49 +83,44 @@ cd kitchenowl
 ```
 
 ### 2. Prepare for Deployment
-If you are deploying on a standard server (VPS like AWS, DigitalOcean, Hetzner), you can use the standard build. 
-
-**However, if using LXC/Proxmox**, remember to use the **Backend-Only Build** strategy:
+Since you are on LXC/Proxmox and want to include the latest frontend changes:
 
 1.  **Uncomment uWSGI**: Edit `backend/pyproject.toml` and uncomment the uWSGI lines (Lines 43-44).
     ```bash
     nano backend/pyproject.toml
-    # Remove # from uWSGI lines
+    # Remove # from uWSGI lines to enable:
+    # "uWSGI>=2.0.28",
+    # "uwsgi-tools>=1.1.1",
     ```
 
-2.  **Build Backend Image**:
+2.  **Build the Full Image**:
+    I have updated the `Dockerfile` with `ENV TAR_OPTIONS="--no-same-owner"`, which allows the Flutter build to work on LXC. All you need to do is build it:
+
     ```bash
-    cd backend
-    docker build -t kitchenowl-backend:local-loyalty .
-    cd ..
+    # Build the full image (frontend + backend)
+    # This may take 10-20 minutes and requires ~4GB RAM
+    docker build -t kitchenowl:local-loyalty .
     ```
 
 ### 3. Configure `docker-compose.yml`
 
-Create/Edit your `docker-compose-local.yml` (or copy the example).
+Create/Edit your `docker-compose-local.yml` to use your local image for BOTH services (it contains both).
 
 ```yaml
 version: '3'
 services:
-  kitchenowl-backend:
-    image: kitchenowl-backend:local-loyalty  # Use your local build
-    restart: unless-stopped
-    environment:
-      - JWT_SECRET_KEY=change_this_to_a_secure_random_string
-      # ... other env vars ...
-    volumes:
-      - ./data:/data
-
-  kitchenowl-frontend:
-    image: tombursch/kitchenowl:latest
+  kitchenowl:
+    image: kitchenowl:local-loyalty
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "80:8080"
     environment:
-      - BACKEND_URL=http://kitchenowl-backend:5000
-    depends_on:
-      - kitchenowl-backend
+      - JWT_SECRET_KEY=change_this_to_a_secure_random_string
+    volumes:
+      - ./data:/data
 ```
+
+*Note: The combined image serves both frontend and backend.*
 
 ### 4. Start the Server
 ```bash
