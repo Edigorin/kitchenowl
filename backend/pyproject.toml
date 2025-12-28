@@ -41,8 +41,8 @@ dependencies = [
     "nltk>=3.9.1",
     "psycopg2-binary>=2.9.10",
     # UNCOMMENT THE FOLLOWING LINES FOR DOCKER DEPLOYMENT
-    # "uWSGI>=2.0.28",
-    # "uwsgi-tools>=1.1.1",
+    "uWSGI>=2.0.28",
+    "uwsgi-tools>=1.1.1",
 ]
 
 [dependency-groups]
