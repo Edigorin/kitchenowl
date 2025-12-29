@@ -1,23 +1,9 @@
-version: "3"
 services:
-  front:
-    image: kitchenowl-web:local
-    build:
-      context: ./kitchenowl
-      dockerfile: Dockerfile
+  kitchenowl:
+    image: kitchenowl:local-loyalty
     restart: unless-stopped
     ports:
-      - "80:80"
-    depends_on:
-      - back
-    environment:
-      - BACK_URL=back:5000
-  back:
-    image: kitchenowl-backend:local
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    restart: unless-stopped
+      - "80:8080"
     environment:
       - JWT_SECRET_KEY=PLEASE_CHANGE_ME_TO_A_SECURE_KEY
     volumes:
@@ -25,4 +11,5 @@ services:
 
 volumes:
   kitchenowl_data:
+
 
