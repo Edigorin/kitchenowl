@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ios_color_picker/flutter_ios_color_picker.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:kitchenowl/kitchenowl.dart';
 
 class KitchenOwlColorPickerDialog extends StatefulWidget {
@@ -34,8 +34,8 @@ class _KitchenOwlColorPickerDialogState
         AppLocalizations.of(context)!.colorSelect,
       ),
       scrollable: true,
-      content: IosColorPicker(
-        initialColor: selectedColor,
+      content: BlockPicker(
+        pickerColor: selectedColor,
         onColorChanged: (c) => selectedColor = c,
       ),
       actions: [

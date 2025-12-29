@@ -309,6 +309,7 @@ class HouseholdUpdateCubit
       if (settings.recipes) "recipes": content["recipes"],
       if (settings.expenses) "expenses": content["expenses"],
       if (settings.shoppinglists) "shoppinglists": content["shoppinglists"],
+      if (settings.loyaltyCards) "loyalty_cards": content["loyalty_cards"],
     };
     await ApiService.getInstance()
         .importHousehold(household, content, settings.recipesOverwrite);

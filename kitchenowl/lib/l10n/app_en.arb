@@ -780,6 +780,7 @@
   "shoppingListEmpty": "The shopping list is empty. Add an item using the search function above.",
   "shoppingListStyle": "Shopping list style",
   "shoppingLists": "Shopping lists",
+  "showLoyaltyCardsButton": "Show Loyalty Cards Button",
   "signInWith": "Sign in with {provider}",
   "signup": "Sign up",
   "skip": "Skip",

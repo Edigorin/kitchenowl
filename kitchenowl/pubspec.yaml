@@ -80,7 +80,6 @@ dependencies:
   barcode_widget: ^2.0.4
   mobile_scanner: ^5.2.3
   screen_brightness: ^1.0.1
-  ios_color_picker: ^2.0.2
 
 dev_dependencies:
   flutter_test:
