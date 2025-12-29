@@ -7,6 +7,7 @@
   "@accountDeleteConfirmation": {},
   "@accountLinkedWithOtherUser": {},
   "@accountsLinked": {},
+  "@advanced": {},
   "@add": {},
   "@addCategory": {},
   "@addDescriptionFromSource": {},
@@ -896,5 +897,6 @@
   "gallery": "Gallery",
   "@gallery": {},
   "keepScreenOn": "Screen stays on for scanning",
-  "@keepScreenOn": {}
+  "@keepScreenOn": {},
+  "advanced": "Advanced"
 }
