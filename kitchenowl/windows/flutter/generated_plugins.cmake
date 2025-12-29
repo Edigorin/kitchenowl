@@ -6,6 +6,8 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_system_colors
   file_selector_windows
   flutter_secure_storage_windows
+  ios_color_picker
+  screen_brightness_windows
   share_plus
   url_launcher_windows
 )

@@ -20,7 +20,8 @@ class ShoppingListFab extends StatelessWidget {
 
         // Check if loyalty cards feature is enabled
         final household = context.read<HouseholdCubit>().state.household;
-        final showLoyaltyCardsFab = household.featureLoyaltyCards ?? true;
+        final showLoyaltyCardsFab = (household.featureLoyaltyCards ?? true) &&
+            context.read<SettingsCubit>().state.showLoyaltyCardsButton;
 
         if (!showConfirmFab && !showLoyaltyCardsFab) {
           return const SizedBox();
@@ -63,6 +64,9 @@ class ShoppingListFab extends StatelessWidget {
           child: const Icon(Icons.wallet_rounded),
         );
       },
+      buildWhen: (previous, current) =>
+          previous.selectedListItems != current.selectedListItems ||
+          previous.runtimeType != current.runtimeType,
     );
   }
 

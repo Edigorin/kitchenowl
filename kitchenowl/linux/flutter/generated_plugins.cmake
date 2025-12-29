@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_system_colors
   file_selector_linux
   flutter_secure_storage_linux
+  ios_color_picker
   url_launcher_linux
 )
 

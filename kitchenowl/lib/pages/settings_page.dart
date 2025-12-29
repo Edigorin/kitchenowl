@@ -381,6 +381,24 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                       ),
                     ),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(context)!.showLoyaltyCardsButton,
+                    ),
+                    leading: const Icon(Icons.wallet_rounded),
+                    onTap: () => BlocProvider.of<SettingsCubit>(context)
+                        .setShowLoyaltyCardsButton(
+                      !BlocProvider.of<SettingsCubit>(context)
+                          .state
+                          .showLoyaltyCardsButton,
+                    ),
+                    trailing: KitchenOwlSwitch(
+                      value: state.showLoyaltyCardsButton,
+                      onChanged: (value) =>
+                          BlocProvider.of<SettingsCubit>(context)
+                              .setShowLoyaltyCardsButton(value),
+                    ),
+                  ),
                 ],
               ),
             ),
